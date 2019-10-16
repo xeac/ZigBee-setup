@@ -1,0 +1,38 @@
+#source: https://www.zigbee2mqtt.io/getting_started/flashing_the_cc2531.html
+
+Flashing the firmware on the CC2531 USB stick
+The CC2531 USB stick needs to be flashed with a custom firmware.
+
+NOTE 1: The following instructions assume you have a CC Debugger. In case you don’t, see Alternative firmware flashing methods.
+
+NOTE 2: Reflashing does not require repairing of all devices, see What does and does not require repairing of all devices?
+
+Windows
+Install SmartRF Flash programmer (NOT V2). This software is free but requires a Texas Instruments account in order to download.
+Install the CC debugger driver on your PC (Windows only). Before continuing, verify that the CC Debugger driver has been installed correctly. See Figure 1. Verify Correct Driver Installation @ Chapter 5.1. In case the CC Debugger is not recognized correctly install the driver manually.
+Connect CC debugger --> Downloader cable CC2531 --> CC2531 USB sniffer.
+Connect BOTH the CC2531 USB sniffer and the CC debugger to your PC using USB.
+If the light on the CC debugger is RED press set reset button on the CC debugger. The light on the CC debugger should now turn GREEN. If not use CC debugger user guide to troubleshoot your problem. How to connect
+Download the firmware CC2531_DEFAULT_20190608.zip
+Start SmartRF Flash Programmer, setup as shown below and press Perform actions. Make sure to select the .hex file, not the .bin file! SmartRF Flash Programmer
+Linux or MacOS
+Credits to @Frans-Willem for majority of instructions.
+
+Install prerequisites for CC-Tool using a package manager (e.g. Homebrew for macOS)
+Ubuntu: dh-autoreconf, libusb-1.0, libboost-all-dev
+Fedora: dh-autoreconf, boost-devel, libusb1-devel, gcc-c++
+Archlinux: dh-autoreconf, libusb, boost
+macOS: brew install autoconf automake libusb boost pkgconfig libtool
+Raspbian: dh-autoreconf, libusb-1.0-0-dev, libboost-all-dev
+Build cc-tool
+git clone https://github.com/dashesy/cc-tool.git
+cd cc-tool
+./bootstrap
+./configure
+make
+Connect CC debugger --> Downloader cable CC2531 --> CC2531 USB sniffer.
+Connect BOTH the CC2531 USB sniffer and the CC debugger to your PC using USB.
+If the light on the CC debugger is RED, press the Reset button on the CC debugger. The light on the CC debugger should now turn GREEN. If not, follow the CC debugger user guide to troubleshoot your problem. How to connect
+Download the firmware CC2531_DEFAULT_20190608.zip.
+Flash your firmware:
+sudo ./cc-tool -e -w CC2531ZNP-Prod.hex
